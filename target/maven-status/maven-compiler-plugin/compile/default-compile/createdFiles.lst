@@ -1,3 +1,4 @@
 com\condor\rfid\Main.class
 com\condor\rfid\sdk\ReaderManager.class
+com\condor\rfid\sdk\ReaderStatus.class
 com\condor\rfid\config\ReaderConfiguration.class
