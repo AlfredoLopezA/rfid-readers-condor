@@ -1,4 +1,9 @@
+com\condor\rfid\service\ReaderService.class
 com\condor\rfid\Main.class
 com\condor\rfid\sdk\ReaderManager.class
+com\condor\rfid\service\RfidReadService.class
 com\condor\rfid\sdk\ReaderStatus.class
+com\condor\rfid\sdk\TagPopulationCalculator.class
 com\condor\rfid\config\ReaderConfiguration.class
+com\condor\rfid\sdk\ReaderEventManager.class
+com\condor\rfid\service\BackendService.class
