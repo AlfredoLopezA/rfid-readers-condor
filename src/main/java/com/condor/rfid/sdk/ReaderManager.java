@@ -1,6 +1,6 @@
 package com.condor.rfid.sdk;
 
-import com.condor.rfid.config.ReaderConfiguration;
+import com.condor.rfid.config.ReaderSettings;
 import com.impinj.octane.FeatureSet;
 import com.impinj.octane.ImpinjReader;
 import com.impinj.octane.Status;
@@ -9,12 +9,12 @@ import com.impinj.octane.Settings;
 public class ReaderManager {
     private final ImpinjReader reader;
     private ReaderStatus status;
-    private ReaderConfiguration configuration;
+    private ReaderSettings configuration;
     private ReaderEventManager eventManager;
     public ReaderManager() {
         this.reader = new ImpinjReader();
         this.status = ReaderStatus.DISCONNECTED;
-        this.configuration = new ReaderConfiguration();
+        this.configuration = new ReaderSettings();
         this.eventManager = new ReaderEventManager();
     }
 
@@ -51,7 +51,7 @@ public class ReaderManager {
         return status;
     }
 
-    public ReaderConfiguration getConfiguration() {
+    public ReaderSettings getConfiguration() {
         return configuration;
     }
 

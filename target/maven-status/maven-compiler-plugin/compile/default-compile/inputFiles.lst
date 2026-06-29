@@ -1,3 +1,6 @@
+D:\Desarrollos\RFID\readers-rfid\condor-rfid-readers\src\main\java\com\condor\rfid\config\ReaderBrand.java
+D:\Desarrollos\RFID\readers-rfid\condor-rfid-readers\src\main\java\com\condor\rfid\config\ReaderConfig.java
+D:\Desarrollos\RFID\readers-rfid\condor-rfid-readers\src\main\java\com\condor\rfid\config\ReaderConfigManager.java
 D:\Desarrollos\RFID\readers-rfid\condor-rfid-readers\src\main\java\com\condor\rfid\config\ReaderConfiguration.java
 D:\Desarrollos\RFID\readers-rfid\condor-rfid-readers\src\main\java\com\condor\rfid\Main.java
 D:\Desarrollos\RFID\readers-rfid\condor-rfid-readers\src\main\java\com\condor\rfid\sdk\ReaderEventManager.java
@@ -6,4 +9,5 @@ D:\Desarrollos\RFID\readers-rfid\condor-rfid-readers\src\main\java\com\condor\rf
 D:\Desarrollos\RFID\readers-rfid\condor-rfid-readers\src\main\java\com\condor\rfid\sdk\TagPopulationCalculator.java
 D:\Desarrollos\RFID\readers-rfid\condor-rfid-readers\src\main\java\com\condor\rfid\service\BackendService.java
 D:\Desarrollos\RFID\readers-rfid\condor-rfid-readers\src\main\java\com\condor\rfid\service\ReaderService.java
+D:\Desarrollos\RFID\readers-rfid\condor-rfid-readers\src\main\java\com\condor\rfid\service\ReaderSetupService.java
 D:\Desarrollos\RFID\readers-rfid\condor-rfid-readers\src\main\java\com\condor\rfid\service\RfidReadService.java

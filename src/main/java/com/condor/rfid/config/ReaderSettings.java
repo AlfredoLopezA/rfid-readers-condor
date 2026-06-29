@@ -3,7 +3,7 @@ package com.condor.rfid.config;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReaderConfiguration {
+public class ReaderSettings {
     private String readerIp;
     private Integer readerMode;
     private Double txPower;
@@ -12,7 +12,7 @@ public class ReaderConfiguration {
     private Integer searchMode;
     private Integer tagPopulation;
     private List<Short> antennas;
-    public ReaderConfiguration() {
+    public ReaderSettings() {
         this.antennas = new ArrayList<>();
         this.tagPopulation = 32;
         this.session = 2;

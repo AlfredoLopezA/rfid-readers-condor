@@ -1,0 +1,11 @@
+{
+  "readerBrand" : "Impinj",
+  "readerIp" : "10.97.15.20",
+  "readerModel" : "Speedway R220",
+  "readerModelNumber" : "2001001",
+  "readerFirmware" : "6.4.1.240",
+  "readerMaxAntennas" : 2,
+  "readerHostname" : null,
+  "lastValidationDate" : "2026-06-28T23:25:39.271441700",
+  "connectedAntennas" : [ ]
+}
