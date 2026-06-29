@@ -1,7 +1,10 @@
 package com.condor.rfid.sdk;
 
 import com.condor.rfid.config.ReaderConfiguration;
+import com.impinj.octane.FeatureSet;
 import com.impinj.octane.ImpinjReader;
+import com.impinj.octane.Status;
+import com.impinj.octane.Settings;
 
 public class ReaderManager {
     private final ImpinjReader reader;
@@ -54,5 +57,49 @@ public class ReaderManager {
 
     public ReaderEventManager getEventManager() {
         return eventManager;
+    }
+
+    public void printReaderInfo() {
+        try {
+            if (status != ReaderStatus.CONNECTED) {
+                System.out.println("Reader not connected");
+                return;
+            }
+            FeatureSet features = reader.queryFeatureSet();
+            Status readerStatus = reader.queryStatus();
+            System.out.println("--------------------------------");
+            System.out.println("READER INFORMATION");
+            System.out.println("--------------------------------");
+            System.out.println("Model: " + features.getModelName());
+            System.out.println("Model Number: " + features.getModelNumber());
+            System.out.println("Firmware: " + features.getFirmwareVersion());
+            System.out.println("Antenna Count: " + features.getAntennaCount());
+            System.out.println("Connected: " + readerStatus.getIsConnected());
+            System.out.println("Temperature: " + readerStatus.getTemperatureCelsius()+ " °C");
+            System.out.println("--------------------------------");
+        } catch (Exception e) {
+            System.out.println(e.getMessage()
+            );
+        }
+    }
+
+    public void printReaderSettings() {
+        try {
+            if (status != ReaderStatus.CONNECTED) {
+                System.out.println("Reader not connected");
+                return;
+            }
+            Settings settings = reader.querySettings();
+            System.out.println("--------------------------------");
+            System.out.println("READER SETTINGS");
+            System.out.println("--------------------------------");
+            System.out.println("Reader Mode: " + settings.getReaderMode());
+            System.out.println("Search Mode: " + settings.getSearchMode());
+            System.out.println("Session: " + settings.getSession());
+            System.out.println("Tag Population: " + settings.getTagPopulationEstimate());
+            System.out.println("--------------------------------");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
