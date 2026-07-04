@@ -1,0 +1,5 @@
+{
+  "agentName": "Condor RFID Agent",
+  "agentVersion": "1.0.0",
+  "httpPort": 8090
+}

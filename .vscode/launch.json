@@ -1,0 +1,45 @@
+/* {
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Attach JavaFX Debug",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": 5005
+    }
+  ]
+}
+ *//* {
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Debug JavaFX - ES",
+      "request": "launch",
+      "mainClass": "com.condor.rfid.MainApp",
+      "vmArgs": "-Dapp.language=es"
+    },
+    {
+      "type": "java",
+      "name": "Debug JavaFX - EN",
+      "request": "launch",
+      "mainClass": "com.condor.rfid.MainApp",
+      "vmArgs": "-Dapp.language=en"
+    },
+    {
+      "type": "java",
+      "name": "Debug JavaFX - FR",
+      "request": "launch",
+      "mainClass": "com.condor.rfid.MainApp",
+      "vmArgs": "-Dapp.language=fr"
+    },
+    {
+      "type": "java",
+      "name": "Debug JavaFX - DE",
+      "request": "launch",
+      "mainClass": "com.condor.rfid.MainApp",
+      "vmArgs": "-Dapp.language=de"
+    }
+  ]
+} */
