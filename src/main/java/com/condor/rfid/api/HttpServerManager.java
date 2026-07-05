@@ -12,6 +12,7 @@ import static com.condor.rfid.api.HttpResponseHelper.ok;
 import static com.condor.rfid.api.HttpResponseHelper.badRequest;
 import static com.condor.rfid.api.HttpResponseHelper.notFound;
 import static com.condor.rfid.api.HttpResponseHelper.internalError;
+import static com.condor.rfid.api.HttpRequestHelper.getHeader;
 
 import com.sun.net.httpserver.HttpServer;
 import java.net.InetSocketAddress;
@@ -89,17 +90,27 @@ public class HttpServerManager {
             }
             ok(exchange, session);
         });
-        server.createContext("/reader/session/stop", exchange -> {
-            if (!requirePost(exchange)) {
-                return;
-            }
+        server.createContext("/reader/read", exchange -> {
+            if (!requirePost(exchange)) { return; }
             try {
-                String query = exchange.getRequestURI().getQuery();
-                if (query == null || !query.startsWith("sessionId=")) {
-                    badRequest(exchange, "Missing sessionId.");
+                String sessionId = getHeader(exchange, "X-Session-Id");
+                if (sessionId == null || sessionId.isBlank()) {
+                    badRequest(exchange, "Missing X-Session-Id header.");
                     return;
                 }
-                String sessionId = query.substring("sessionId=".length());
+                ok(exchange, readerController.readSession(sessionId));
+            } catch (Exception e) {
+                internalError(exchange, e.getMessage());
+            }
+        });
+        server.createContext("/reader/session/stop", exchange -> {
+            if (!requirePost(exchange)) { return; }
+            try {
+                String sessionId = getHeader(exchange, "X-Session-Id");
+                if (sessionId == null || sessionId.isBlank()) {
+                    badRequest(exchange, "Missing X-Session-Id header.");
+                    return;
+                }
                 ok(exchange, readerController.stopSession(sessionId));
             } catch (Exception e) {
                 internalError(exchange, e.getMessage());

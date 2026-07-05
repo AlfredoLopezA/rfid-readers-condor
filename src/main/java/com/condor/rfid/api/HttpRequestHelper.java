@@ -24,4 +24,9 @@ public final class HttpRequestHelper {
         HttpResponseHelper.methodNotAllowed(exchange);
         return false;
     }
+
+    public static String getHeader(HttpExchange exchange, String headerName) {
+        return exchange.getRequestHeaders().getFirst(headerName);
+    }
+
 }

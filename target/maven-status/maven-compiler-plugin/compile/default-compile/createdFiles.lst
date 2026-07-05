@@ -32,6 +32,7 @@ com\condor\rfid\Main.class
 com\condor\rfid\api\HttpResponseHelper.class
 com\condor\rfid\config\ReaderConfigManager.class
 com\condor\rfid\sdk\RfidReaderDriver.class
+com\condor\rfid\config\FastReadConfig.class
 com\condor\rfid\sdk\TagPopulationCalculator.class
 com\condor\rfid\api\dto\RfidSessionResponse.class
 com\condor\rfid\config\ReaderConfig.class

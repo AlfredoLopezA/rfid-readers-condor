@@ -11,4 +11,5 @@ public interface RfidReaderDriver {
     void disconnect() throws Exception;
     boolean isConnected();
     boolean isReading();
+    void setTagPopulationEstimate(int tagPopulationEstimate) throws Exception;
 }

@@ -19,42 +19,30 @@ public class ImpinjReaderDriver implements RfidReaderDriver {
     private ImpinjReader reader;
     private boolean connected = false;
     private boolean reading = false;
+    private int tagPopulationEstimate = 32;
 
     private final List<String> epcList = Collections.synchronizedList(new ArrayList<>());
 
     @Override
     public void connect(String hostname) throws Exception {
-        if (connected) {
-            return;
-        }
-
+        if (connected) { return; }
         reader = new ImpinjReader();
         reader.connect(hostname);
-
         Settings settings = reader.queryDefaultSettings();
-
+        settings.setTagPopulationEstimate(tagPopulationEstimate);
         ReportConfig reportConfig = settings.getReport();
         reportConfig.setMode(ReportMode.Individual);
-
         AntennaConfigGroup antennas = settings.getAntennas();
         antennas.enableAll();
-
         reader.setTagReportListener((ImpinjReader impinjReader, TagReport tagReport) -> {
             for (Tag tag : tagReport.getTags()) {
                 String epc = tag.getEpc().toString();
-
-                System.out.println("TAG DETECTADO: " + epc);
-
-                if (!epcList.contains(epc)) {
-                    epcList.add(epc);
-                }
+                //System.out.println("TAG DETECTADO: " + epc);
+                if (!epcList.contains(epc)) { epcList.add(epc); }
             }
         });
-
         reader.applySettings(settings);
-
         connected = true;
-
         System.out.println("Driver Impinj conectado.");
     }
 
@@ -63,30 +51,17 @@ public class ImpinjReaderDriver implements RfidReaderDriver {
         if (!connected || reader == null) {
             throw new IllegalStateException("Reader is not connected.");
         }
-
-        if (reading) {
-            return;
-        }
-
+        if (reading) { return; }
         epcList.clear();
-
         reader.start();
-
         reading = true;
     }
 
     @Override
     public void stopReading() throws Exception {
-        if (!connected || reader == null) {
-            return;
-        }
-
-        if (!reading) {
-            return;
-        }
-
+        if (!connected || reader == null) { return; }
+        if (!reading) { return; }
         reader.stop();
-
         reading = false;
     }
 
@@ -134,4 +109,18 @@ public class ImpinjReaderDriver implements RfidReaderDriver {
     public boolean isReading() {
         return reading;
     }
+
+    @Override
+    public void setTagPopulationEstimate(int tagPopulationEstimate) {
+        this.tagPopulationEstimate = tagPopulationEstimate;
+    }
+
+/*     @Override
+    public void setTagPopulationEstimate(int tagPopulationEstimate) throws Exception {
+        if (!connected || reader == null) { throw new IllegalStateException("Reader is not connected."); }
+        Settings settings = reader.querySettings();
+        settings.setTagPopulationEstimate(tagPopulationEstimate);
+        reader.applySettings(settings);
+    }
+ */
 }

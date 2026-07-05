@@ -51,4 +51,8 @@ public class ReaderController {
     public RfidSessionResponse stopSession(String sessionId) throws Exception {
         return toSessionResponse(rfidService.stopSession(sessionId));
     }
+
+    public RfidSessionResponse readSession(String sessionId) throws Exception {
+        return toSessionResponse(rfidService.readSession(sessionId));
+    }
 }
