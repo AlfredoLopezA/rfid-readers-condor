@@ -84,12 +84,17 @@ public class RfidReaderService {
 
     public RfidReadingSession getCurrentSession() {
         RfidReadingSession session = sessionService.getCurrentSession();
+        session.addNewTags(driver.getReadTags());
+        return session;
+/* 
+        RfidReadingSession session = sessionService.getCurrentSession();
         if (session != null && driver != null) {
             for (String epc : driver.getReadTags()) {
                 session.addTag(epc);
             }
         }
         return session;
+ */
     }
 
     public boolean hasActiveSession() {
@@ -115,7 +120,6 @@ public class RfidReaderService {
         driver.clearReadTags();
         // Lectura preliminar rápida para estimar población real
         driver.startReading();
-        //Thread.sleep(450);
         Thread.sleep(fastReadConfig.getPreliminaryReadMillis());
         driver.stopReading();
         int preliminaryCount = driver.getReadTags().size();
@@ -127,13 +131,10 @@ public class RfidReaderService {
         // Lectura final con ETP ajustado
         driver.startReading();
         waitForStableReading();
-        // Thread.sleep(fastReadConfig.getFinalReadMaxMillis());
-        waitForStableReading();
         driver.stopReading();
         RfidReadingSession session = sessionService.getCurrentSession();
-        for (String epc : driver.getReadTags()) {
-            session.addTag(epc);
-        }
+        List<String> currentReadTags = driver.getReadTags();
+        session.addNewTags(currentReadTags);
         return session;
     }
 
@@ -151,7 +152,8 @@ public class RfidReaderService {
             } else {
                 stableCycles++;
             }
-            if (stableCycles >= fastReadConfig.getStableCyclesRequired()) {
+            if (elapsedMillis >= fastReadConfig.getFinalReadMinMillis()
+                    && stableCycles >= fastReadConfig.getStableCyclesRequired()) {
                 break;
             }
         }

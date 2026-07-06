@@ -44,7 +44,9 @@ public class ReaderController {
                 session.getStartedAt().toString(),
                 session.getStoppedAt() == null ? null : session.getStoppedAt().toString(),
                 session.getTagCount(),
-                session.getTags()
+                session.getTags(),
+                session.getNewTagCount(),
+                session.getNewTags()
         );
     }
 

@@ -10,6 +10,8 @@ public class RfidSessionResponse {
     private final String stoppedAt;
     private final int tagCount;
     private final List<String> tags;
+    private final int newTagCount;
+    private final List<String> newTags;
 
     public RfidSessionResponse(
             String sessionId,
@@ -17,7 +19,9 @@ public class RfidSessionResponse {
             String startedAt,
             String stoppedAt,
             int tagCount,
-            List<String> tags) {
+            List<String> tags,
+            int newTagCount,
+            List<String> newTags) {
 
         this.sessionId = sessionId;
         this.active = active;
@@ -25,6 +29,8 @@ public class RfidSessionResponse {
         this.stoppedAt = stoppedAt;
         this.tagCount = tagCount;
         this.tags = tags;
+        this.newTagCount = newTagCount;
+        this.newTags = newTags;
     }
 
     public String getSessionId() {
@@ -49,5 +55,13 @@ public class RfidSessionResponse {
 
     public List<String> getTags() {
         return tags;
+    }
+
+    public int getNewTagCount() {
+        return newTagCount;
+    }
+
+    public List<String> getNewTags() {
+        return newTags;
     }
 }
