@@ -36,7 +36,7 @@ public class ImpinjReaderDriver implements RfidReaderDriver {
         antennas.enableAll();
         reader.setTagReportListener((ImpinjReader impinjReader, TagReport tagReport) -> {
             for (Tag tag : tagReport.getTags()) {
-                String epc = tag.getEpc().toString();
+                String epc = tag.getEpc().toString().replaceAll("\\s+", "");
                 //System.out.println("TAG DETECTADO: " + epc);
                 if (!epcList.contains(epc)) { epcList.add(epc); }
             }

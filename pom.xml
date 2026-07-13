@@ -61,11 +61,7 @@
                 <version>0.0.8</version>
                 <configuration>
                     <mainClass>com.condor.rfid.MainApp</mainClass>
-<!--                     <options>
-                        <option>-Dapp.language=${app.language}</option>
-                        <option>-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005</option>
-                    </options>
- -->                </configuration>
+                </configuration>
             </plugin>
         </plugins>
     </build>

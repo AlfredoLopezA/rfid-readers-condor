@@ -12,6 +12,7 @@ public class RfidSessionResponse {
     private final List<String> tags;
     private final int newTagCount;
     private final List<String> newTags;
+    private final ReadQualityResponse readQuality;
 
     public RfidSessionResponse(
             String sessionId,
@@ -21,7 +22,8 @@ public class RfidSessionResponse {
             int tagCount,
             List<String> tags,
             int newTagCount,
-            List<String> newTags) {
+            List<String> newTags,
+            ReadQualityResponse readQuality) {
 
         this.sessionId = sessionId;
         this.active = active;
@@ -31,6 +33,7 @@ public class RfidSessionResponse {
         this.tags = tags;
         this.newTagCount = newTagCount;
         this.newTags = newTags;
+        this.readQuality = readQuality;
     }
 
     public String getSessionId() {
@@ -63,5 +66,9 @@ public class RfidSessionResponse {
 
     public List<String> getNewTags() {
         return newTags;
+    }
+
+    public ReadQualityResponse getReadQuality() {
+        return readQuality;
     }
 }

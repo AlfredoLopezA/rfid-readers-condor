@@ -1,5 +1,6 @@
 {
   "agentName": "Condor RFID Agent",
   "agentVersion": "1.0.0",
-  "httpPort": 8090
+  "httpPort": 8090,
+  "apiKey": "ffcfc2d0-4528-4eec-ba8b-c805f436453d"
 }

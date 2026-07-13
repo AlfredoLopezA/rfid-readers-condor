@@ -1,5 +1,6 @@
 package com.condor.rfid;
 
+import com.condor.rfid.agent.CondorAgent;
 import com.condor.rfid.config.I18nManager;
 import com.condor.rfid.config.ReaderConfig;
 import com.condor.rfid.config.ReaderConfigManager;
@@ -7,7 +8,6 @@ import com.condor.rfid.service.ReaderSetupService;
 import com.condor.rfid.ui.dialog.MessageDialog;
 import com.condor.rfid.ui.view.HomeView;
 import com.condor.rfid.ui.view.SetupView;
-import com.condor.rfid.agent.CondorAgent;
 
 import javafx.application.Application;
 import javafx.scene.Scene;

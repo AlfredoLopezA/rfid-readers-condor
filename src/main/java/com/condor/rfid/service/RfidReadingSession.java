@@ -1,5 +1,7 @@
 package com.condor.rfid.service;
 
+import com.condor.rfid.api.dto.ReadQualityResponse;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,7 @@ public class RfidReadingSession {
     private boolean active;
     private final List<String> tags;
     private List<String> newTags;
+    private ReadQualityResponse readQuality;
 
     public RfidReadingSession() {
         this.sessionId = UUID.randomUUID().toString();
@@ -20,6 +23,7 @@ public class RfidReadingSession {
         this.active = true;
         this.tags = new ArrayList<>();
         this.newTags = new ArrayList<>();
+        this.readQuality = null;
     }
 
     public String getSessionId() {
@@ -74,5 +78,12 @@ public class RfidReadingSession {
             }
         }
     }
-}
 
+    public ReadQualityResponse getReadQuality() {
+        return readQuality;
+    }
+
+    public void setReadQuality(ReadQualityResponse readQuality) {
+        this.readQuality = readQuality;
+    }
+}

@@ -30,12 +30,26 @@ public final class HttpResponseHelper {
     }
 
     public static void methodNotAllowed(HttpExchange exchange) throws IOException {
+        addCorsHeaders(exchange);
         exchange.sendResponseHeaders(405, -1);
+        exchange.close();
+    }
+
+    public static void addCorsHeaders(HttpExchange exchange) {
+        exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Headers", "Content-Type, X-Api-Key, X-Session-Id");
+    }
+
+    public static void options(HttpExchange exchange) throws IOException {
+        addCorsHeaders(exchange);
+        exchange.sendResponseHeaders(204, -1);
         exchange.close();
     }
 
     private static void write(HttpExchange exchange, int status, Object body) throws IOException {
         byte[] bytes = GSON.toJson(body).getBytes(StandardCharsets.UTF_8);
+        addCorsHeaders(exchange);
         exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
         exchange.sendResponseHeaders(status, bytes.length);
         try (OutputStream os = exchange.getResponseBody()) {
@@ -45,4 +59,9 @@ public final class HttpResponseHelper {
 
     private record ErrorResponse(String error) {
     }
+
+    public static void unauthorized(HttpExchange exchange) throws IOException {
+        write(exchange, 401, new ErrorResponse("Unauthorized"));
+    }
+
 }

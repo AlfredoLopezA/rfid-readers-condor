@@ -46,7 +46,8 @@ public class ReaderController {
                 session.getTagCount(),
                 session.getTags(),
                 session.getNewTagCount(),
-                session.getNewTags()
+                session.getNewTags(),
+                session.getReadQuality()
         );
     }
 

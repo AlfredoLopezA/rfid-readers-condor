@@ -13,6 +13,8 @@ import static com.condor.rfid.api.HttpResponseHelper.badRequest;
 import static com.condor.rfid.api.HttpResponseHelper.notFound;
 import static com.condor.rfid.api.HttpResponseHelper.internalError;
 import static com.condor.rfid.api.HttpRequestHelper.getHeader;
+import static com.condor.rfid.api.HttpRequestHelper.hasValidApiKey;
+import static com.condor.rfid.api.HttpResponseHelper.unauthorized;
 
 import com.sun.net.httpserver.HttpServer;
 import java.net.InetSocketAddress;
@@ -38,28 +40,21 @@ public class HttpServerManager {
         if (running) { return; }
         server = HttpServer.create( new InetSocketAddress("0.0.0.0", agentConfig.getHttpPort()), 0);
         server.createContext("/health", exchange -> {
-            if (!requireGet(exchange)) {
-                return;
-            }
+            if (!requireGet(exchange)) { return; }
             ok(exchange, healthController.getHealth());
         });
         server.createContext("/agent/info", exchange -> {
-
-            if (!requireGet(exchange)) {
-                return;
-            }
-
+            if (!requireGet(exchange)) { return; }
             ok(exchange, agentController.getInfo());
-
         });
         server.createContext("/reader/status", exchange -> {
-            if (!requireGet(exchange)) {
-                return;
-            }
+            if (!requireGet(exchange)) { return; }
             ok(exchange, readerController.getStatus());
         });
         server.createContext("/reader/session/start", exchange -> {
-            if (!requirePost(exchange)) {
+            if (!requirePost(exchange)) { return; }
+            if (!hasValidApiKey(exchange, agentConfig.getApiKey())) {
+                unauthorized(exchange);
                 return;
             }
             try {
@@ -69,9 +64,7 @@ public class HttpServerManager {
             }
         });
         server.createContext("/reader/session/current", exchange -> {
-            if (!requireGet(exchange)) {
-                return;
-            }
+            if (!requireGet(exchange)) { return; }
             Object session = readerController.getCurrentSession();
             if (session == null) {
                 notFound(exchange, "There is no RFID session.");
@@ -80,9 +73,7 @@ public class HttpServerManager {
             ok(exchange, session);
         });
         server.createContext("/reader/session/tags", exchange -> {
-            if (!requireGet(exchange)) {
-                return;
-            }
+            if (!requireGet(exchange)) { return; }
             Object session = readerController.getCurrentSession();
             if (session == null) {
                 notFound(exchange, "There is no RFID session.");
@@ -92,6 +83,10 @@ public class HttpServerManager {
         });
         server.createContext("/reader/read", exchange -> {
             if (!requirePost(exchange)) { return; }
+            if (!hasValidApiKey(exchange, agentConfig.getApiKey())) {
+                unauthorized(exchange);
+                return;
+            }
             try {
                 String sessionId = getHeader(exchange, "X-Session-Id");
                 if (sessionId == null || sessionId.isBlank()) {
@@ -105,6 +100,10 @@ public class HttpServerManager {
         });
         server.createContext("/reader/session/stop", exchange -> {
             if (!requirePost(exchange)) { return; }
+            if (!hasValidApiKey(exchange, agentConfig.getApiKey())) {
+                unauthorized(exchange);
+                return;
+            }
             try {
                 String sessionId = getHeader(exchange, "X-Session-Id");
                 if (sessionId == null || sessionId.isBlank()) {
